@@ -7,6 +7,7 @@ public class FloorGeneratorScript : MonoBehaviour
     //private GameObject floor = GameObject.CreatePrimitive(PrimitiveType.Cube);
     //private Renderer rend = floor.GetComponent<Renderer>();
     List<GameObject> test = new List<GameObject>();
+    List<Renderer> renderers = new List<Renderer>();
     public void Resize(GameObject gm, float amount, Vector3 direction)
  {
       gm.transform.position += direction * amount / 2;
@@ -20,7 +21,7 @@ public class FloorGeneratorScript : MonoBehaviour
 
         GameObject floor = GameObject.CreatePrimitive(PrimitiveType.Cube);
         Resize(floor, 10, new Vector3(1,0,0));
-        Resize(floor, 30, new Vector3(0,0,1));
+        Resize(floor, 100, new Vector3(0,0,1));
       
         GameObject seat = GameObject.CreatePrimitive(PrimitiveType.Cube);
         Renderer seatRenderer = seat.GetComponent<Renderer>();
@@ -28,16 +29,18 @@ public class FloorGeneratorScript : MonoBehaviour
         seat.transform.position += new Vector3(3 ,1, 30f);
         Resize(seat, 4, new Vector3(1,0,0));
 
+        
 
-
-        for (int i = 0; i < 5; i ++)
+        for (int i = 0; i < 40; i ++)
         {
 
             test.Add(GameObject.CreatePrimitive(PrimitiveType.Cube));
+            renderers.Add(test[i].GetComponent<Renderer>());
+            renderers[i].material.color = new Color(1f, 0f, i/40f, 1f);
             //floorLevel.transform.localScale = new Vector3(1, 1, 1);
-            Resize(test[i], 11-(i*2), new Vector3(0,0,1));
+            Resize(test[i], 90-(i*2), new Vector3(0,0,1));
             Resize(test[i], 10, new Vector3(1,0,0));
-            StartCoroutine(Move(test[i],i+i));
+            StartCoroutine(Move(test[i],i));
             //test[i].transform.position += new Vector3(0, i+1, 0);
             //GameObject.Instantiate(step, new Vector3(0,i+1,0), Quaternion.identity);
         }
@@ -55,10 +58,10 @@ public class FloorGeneratorScript : MonoBehaviour
 
     public IEnumerator Move(GameObject gm, float height)
     {   
-        while(gm.transform.position.y < height)
+        while(gm.transform.position.y <= height)
         {
-            gm.transform.position += new Vector3(0, 0.01f, 0);
-            yield return new WaitForSeconds(0.1f);
+            gm.transform.position += new Vector3(0, 0.04f, 0);
+            yield return new WaitForSeconds(0.01f);
         }
     }
 }
