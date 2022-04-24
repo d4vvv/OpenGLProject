@@ -8,12 +8,14 @@ public class MoveCameraScript : MonoBehaviour
     public float speedH = 5.0f;
     public float speedV = 5.0f;
 
-    public float yaw = 0f;
-    public float pitch = 0f;
+    public float yaw;
+    public float pitch;
     
     void Start()
     {
-        
+        pitch = transform.rotation.x;
+        yaw = transform.eulerAngles.y;
+        Debug.Log(transform.eulerAngles.y);
     }
 
     // Update is called once per frame
