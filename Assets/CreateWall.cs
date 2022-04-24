@@ -5,22 +5,35 @@ using UnityEngine;
 public class CreateWall : MonoBehaviour
 {
     // Start is called before the first frame update
-
+    private GameObject local_gm;
     public void Resize(GameObject gm, float amount, Vector3 direction)
     {
         gm.transform.position += direction * amount / 2;
         gm.transform.localScale += direction * amount; // Scale object in the specified direction
     }
-    public CreateWall(Color color_, float x, float y, float z)
+
+    private float CheckValues(float x){
+        if(x == 0){
+            return 0;
+        } else if(x > 0){
+            return 1;
+        } else {
+            return -1;
+        }
+    }
+
+    public void Move_obj(Vector3 start_pos, float height){
+        local_gm.transform.position += start_pos;
+        StartCoroutine(Move(local_gm, height, 0.04f));
+    }
+    public CreateWall(Color color_, float width, float height, float depth)
     {
-        GameObject temp = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        Renderer tempRenderer = temp.GetComponent<Renderer>();
+        local_gm = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        Renderer tempRenderer = local_gm.GetComponent<Renderer>();
         tempRenderer.material.color = color_;
-        Resize(temp, 4f, new Vector3(0, 0, -1));
-        Resize(temp, 14f, new Vector3(0, 1, 0));
-       // Resize(temp, roomWidth, new Vector3(1, 0, 0));
-       // temp.transform.position += new Vector3(0, -5f, roomDepth + 1);
-       // StartCoroutine(Move(temp, 7f, 0.04f));
+        Resize(local_gm, Math.Abs(width), new Vector3(CheckValues(width), 0, 0));
+        Resize(local_gm, Math.Abs(height), new Vector3(0, CheckValues(height), 0));
+        Resize(local_gm, Math.Abs(depth), new Vector3(0, 0, CheckValues(depth)));
     }
     // Update is called once per frame
     void Update()

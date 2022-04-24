@@ -212,7 +212,7 @@ public class FloorGeneratorScript : MonoBehaviour
 
     }
 
-    public IEnumerator Move(GameObject gm, float height, float speed)
+    public static IEnumerator Move(GameObject gm, float height, float speed)
     {   
         while(gm.transform.position.y < height)
         {
