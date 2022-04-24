@@ -6,6 +6,7 @@ public class FloorGeneratorScript : MonoBehaviour
 {
     public Material GlowMaterial;
     public Material GlowMaterial2;
+    public Material TestMaterial;
 
     //private GameObject floor = GameObject.CreatePrimitive(PrimitiveType.Cube);
     //private Renderer rend = floor.GetComponent<Renderer>();
@@ -37,13 +38,14 @@ public class FloorGeneratorScript : MonoBehaviour
  }
     void Awake()
     {
-       
         //Renderer floorRenderer = floorLevel.GetComponent<Renderer>();
         //floorRenderer.material.color = new Color (0, 1, 0, 1);
 
         GameObject floor = GameObject.CreatePrimitive(PrimitiveType.Cube);
         Renderer floorRenderer = floor.GetComponent<Renderer>();
-        floorRenderer.material.color = new Color(0.65f, 0.65f, 0.65f, 1f);
+        floorRenderer.material.shader = Shader.Find("HDRP/Lit");
+        //floorRenderer.material.color = new Color(0.65f, 0.65f, 0.65f, 1f);
+        //floorRenderer.material = TestMaterial;
         Resize(floor, roomWidth, new Vector3(1,0,0));
         Resize(floor, roomDepth, new Vector3(0,0,1));
         
@@ -53,7 +55,8 @@ public class FloorGeneratorScript : MonoBehaviour
 
             test.Add(GameObject.CreatePrimitive(PrimitiveType.Cube));
             renderers.Add(test[i].GetComponent<Renderer>());
-            renderers[i].material.color = new Color(0.65f, 0.65f, 0.65f, 1f);
+            //renderers[i].material.color = new Color(0.65f, 0.65f, 0.65f, 1f);
+            renderers[i].material.shader = Shader.Find("HDRP/Lit");
             Resize(test[i], roomDepth - frontCorridorDepth - (i*2)-0.01f, new Vector3(0,0,1));
             Resize(test[i], roomWidth, new Vector3(1,0,0));
             StartCoroutine(Move(test[i],i-0.02f, 0.04f));
@@ -75,13 +78,16 @@ public class FloorGeneratorScript : MonoBehaviour
             leftUnderSeatFloorList.Add(GameObject.CreatePrimitive(PrimitiveType.Cube));
             leftUnderSeatRenderers.Add(leftUnderSeatFloorList[i].GetComponent<Renderer>());
             leftUnderSeatRenderers[i].material.color = new Color(0.2f, 0.2f, 0.2f, 1f);
+            leftUnderSeatRenderers[i].material.shader = Shader.Find("HDRP/Lit");
             rightUnderSeatFloorList.Add(GameObject.CreatePrimitive(PrimitiveType.Cube));
             rightUnderSeatRenderers.Add(rightUnderSeatFloorList[i].GetComponent<Renderer>());
             rightUnderSeatRenderers[i].material.color = new Color(0.2f, 0.2f, 0.2f, 1f);
+            rightUnderSeatRenderers[i].material.shader = Shader.Find("HDRP/Lit");
 
-            for (int j = 0; j < (roomWidth/2 - 10)/8; j++)
+            for (int j = 0; j < (int)(roomWidth/2 - 10)/8; j++)
             {
                 int index = i * (int)((roomWidth / 2 - 10) / 8) + j;
+                Debug.Log(index);
                 leftSeatList.Add(GameObject.CreatePrimitive(PrimitiveType.Cube));
                 leftSeatRenderers.Add(leftSeatList[index].GetComponent<Renderer>());
                 leftSeatRenderers[index].material = GlowMaterial2;
@@ -106,6 +112,7 @@ public class FloorGeneratorScript : MonoBehaviour
                 Resize(leftUnderSeatFloorList[i], (roomWidth / 2) - 5, new Vector3(1, 0, 0));
                 Resize(leftUnderSeatFloorList[i], 2.01f, new Vector3(0, 1, 0));
                 Resize(leftUnderSeatFloorList[i], roomDepth - frontCorridorDepth - (i * 8)+2, new Vector3(0, 0, 1));
+
                 StartCoroutine(Move(leftUnderSeatFloorList[i], i * 4f, 0.04f));
                     
                 Resize(rightUnderSeatFloorList[i], (roomWidth / 2) - 5, new Vector3(1, 0, 0));
@@ -148,6 +155,7 @@ public class FloorGeneratorScript : MonoBehaviour
         GameObject lowerFrontWall = GameObject.CreatePrimitive(PrimitiveType.Cube);
         Renderer lowerFrontWallRenderer = lowerFrontWall.GetComponent<Renderer>();
         lowerFrontWallRenderer.material.color = new Color(0.65f, 0.65f, 0.65f, 1f);
+        lowerFrontWallRenderer.material.shader = Shader.Find("HDRP/Lit");
         Resize(lowerFrontWall, 4f, new Vector3(0, 0, -1));
         Resize(lowerFrontWall, 14f, new Vector3(0, 1, 0));
         Resize(lowerFrontWall, roomWidth, new Vector3(1, 0, 0));
@@ -157,6 +165,7 @@ public class FloorGeneratorScript : MonoBehaviour
         GameObject upperFrontWall = GameObject.CreatePrimitive(PrimitiveType.Cube);
         Renderer upperFrontWallRenderer = upperFrontWall.GetComponent<Renderer>();
         upperFrontWallRenderer.material.color = new Color(0.65f, 0.65f, 0.65f, 1f);
+        upperFrontWallRenderer.material.shader = Shader.Find("HDRP/Lit");
         Resize(upperFrontWall, 4f, new Vector3(0, 0, -1));
         Resize(upperFrontWall, 14f, new Vector3(0, 1, 0));
         Resize(upperFrontWall, roomWidth, new Vector3(1, 0, 0));
@@ -166,6 +175,7 @@ public class FloorGeneratorScript : MonoBehaviour
         GameObject leftFrontWall = GameObject.CreatePrimitive(PrimitiveType.Cube);
         Renderer leftFrontWallRenderer = leftFrontWall.GetComponent<Renderer>();
         leftFrontWallRenderer.material.color = new Color(0.65f, 0.65f, 0.65f, 1f);
+        leftFrontWallRenderer.material.shader = Shader.Find("HDRP/Lit");
         Resize(leftFrontWall, 4f, new Vector3(0, 0, -1));
         Resize(leftFrontWall, roomHeight, new Vector3(0, 1, 0));
         Resize(leftFrontWall, (roomWidth - screenWidth) / 2, new Vector3(1, 0, 0));
@@ -175,6 +185,7 @@ public class FloorGeneratorScript : MonoBehaviour
         GameObject rightFrontWall = GameObject.CreatePrimitive(PrimitiveType.Cube);
         Renderer rightFrontWallRenderer = rightFrontWall.GetComponent<Renderer>();
         rightFrontWallRenderer.material.color = new Color(0.65f, 0.65f, 0.65f, 1f);
+        rightFrontWallRenderer.material.shader = Shader.Find("HDRP/Lit");
         Resize(rightFrontWall, 4f, new Vector3(0, 0, -1));
         Resize(rightFrontWall, roomHeight, new Vector3(0, 1, 0));
         Resize(rightFrontWall, (roomWidth - screenWidth) / 2, new Vector3(1, 0, 0));
@@ -184,6 +195,7 @@ public class FloorGeneratorScript : MonoBehaviour
         GameObject frontWall = GameObject.CreatePrimitive(PrimitiveType.Cube);
         Renderer frontWallRenderer = frontWall.GetComponent<Renderer>();
         frontWallRenderer.material.color = new Color(0.65f, 0.65f, 0.65f, 1f);
+        frontWallRenderer.material.shader = Shader.Find("HDRP/Lit");
         Resize(frontWall, roomHeight, new Vector3(0, 1, 0));
         Resize(frontWall, roomWidth, new Vector3(1, 0, 0));
         frontWall.transform.position += new Vector3(0, -roomHeight, roomDepth);
@@ -200,7 +212,8 @@ public class FloorGeneratorScript : MonoBehaviour
 
         GameObject backWall = GameObject.CreatePrimitive(PrimitiveType.Cube);
         Renderer backWallRenderer = backWall.GetComponent<Renderer>();
-        backWallRenderer.material.color = new Color(0.65f, 0.65f, 0.65f, 1f);
+        backWallRenderer.material.shader = Shader.Find("HDRP/Lit");
+        //backWallRenderer.material.color = new Color(0.65f, 0.65f, 0.65f, 1f);
         Resize(backWall, roomHeight, new Vector3(0, 1, 0));
         Resize(backWall, roomWidth, new Vector3(1, 0, 0));
         backWall.transform.position += new Vector3(0, -roomHeight, 0);
@@ -209,6 +222,7 @@ public class FloorGeneratorScript : MonoBehaviour
         GameObject rightWall = GameObject.CreatePrimitive(PrimitiveType.Cube);
         Renderer rightWallRenderer = rightWall.GetComponent<Renderer>();
         rightWallRenderer.material.color = new Color(0.65f, 0.65f, 0.65f, 1f);
+        rightWallRenderer.material.shader = Shader.Find("HDRP/Lit");
         Resize(rightWall, roomHeight, new Vector3(0, 1, 0));
         Resize(rightWall, roomDepth - 10, new Vector3(0, 0, 1));
         rightWall.transform.position += new Vector3(-1, -roomHeight, 0);
@@ -217,6 +231,7 @@ public class FloorGeneratorScript : MonoBehaviour
         GameObject rightWallDoor = GameObject.CreatePrimitive(PrimitiveType.Cube);
         Renderer rightWallDoorRenderer = rightWallDoor.GetComponent<Renderer>();
         rightWallDoorRenderer.material.color = new Color(0.65f, 0.65f, 0.65f, 1f);
+        rightWallDoorRenderer.material.shader = Shader.Find("HDRP/Lit");
         Resize(rightWallDoor, roomHeight - 20, new Vector3(0, 1, 0));
         Resize(rightWallDoor, 6, new Vector3(0, 0, 1));
         rightWallDoor.transform.position += new Vector3(-1, 2 * roomHeight, roomDepth - 9);
@@ -225,6 +240,7 @@ public class FloorGeneratorScript : MonoBehaviour
         GameObject leftWall = GameObject.CreatePrimitive(PrimitiveType.Cube);
         Renderer leftWallRenderer = leftWall.GetComponent<Renderer>();
         leftWallRenderer.material.color = new Color(0.65f, 0.65f, 0.65f, 1f);
+        leftWallRenderer.material.shader = Shader.Find("HDRP/Lit");
         Resize(leftWall, roomHeight, new Vector3(0, 1, 0));
         Resize(leftWall, roomDepth, new Vector3(0, 0, 1));
         leftWall.transform.position += new Vector3(roomWidth, -roomHeight, 0);
@@ -233,6 +249,7 @@ public class FloorGeneratorScript : MonoBehaviour
         GameObject celling = GameObject.CreatePrimitive(PrimitiveType.Cube);
         Renderer cellingRenderer = celling.GetComponent<Renderer>();
         cellingRenderer.material.color = new Color(0.65f, 0.65f, 0.65f, 1f);
+        cellingRenderer.material.shader = Shader.Find("HDRP/Lit");
         Resize(celling, roomWidth, new Vector3(1, 0, 0));
         Resize(celling, roomDepth, new Vector3(0, 0, 1));
         celling.transform.position += new Vector3(0, 1.5f * roomHeight, 0);

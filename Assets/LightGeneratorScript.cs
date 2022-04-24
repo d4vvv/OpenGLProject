@@ -22,6 +22,5 @@ public class LightGeneratorScript : MonoBehaviour
                 spotlightsList.Add(new SpotlightGen(baseColor, new Vector3(i, roomHeight + 3 , j), new Vector3(90f, 0f, 0f), 40f, 600f, roomHeight + j));
             }
         }
-       
     }
 }
