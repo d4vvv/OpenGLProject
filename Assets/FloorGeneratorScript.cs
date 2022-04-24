@@ -17,15 +17,13 @@ public class FloorGeneratorScript : MonoBehaviour
     List<Renderer> rightUnderSeatRenderers = new List<Renderer>();
     List<Renderer> glowSticksRenderers = new List<Renderer>();
 
-    GameObject test2;
-
     private float roomWidth = ParametersScript.roomWidth;
     private float roomDepth = ParametersScript.roomDepth;
     private float roomHeight = ParametersScript.roomHeight;
     private float screenWidth = ParametersScript.screenWidth;
     private float frontCorridorDepth = ParametersScript.frontCorridorDepth;
 
-    public void Resize(GameObject gm, float amount, Vector3 direction)
+    public static void Resize(GameObject gm, float amount, Vector3 direction)
  {
       gm.transform.position += direction * amount / 2;
       gm.transform.localScale += direction * amount; // Scale object in the specified direction
@@ -117,98 +115,101 @@ public class FloorGeneratorScript : MonoBehaviour
 
     void CreateRoom()
     {
-        GameObject lowerFrontWall = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        Renderer lowerFrontWallRenderer = lowerFrontWall.GetComponent<Renderer>();
-        lowerFrontWallRenderer.material.color = new Color(0.65f, 0.65f, 0.65f, 1f);
-        Resize(lowerFrontWall, 4f, new Vector3(0, 0, -1));
-        Resize(lowerFrontWall, 14f, new Vector3(0, 1, 0));
-        Resize(lowerFrontWall, roomWidth, new Vector3(1, 0, 0));
-        lowerFrontWall.transform.position += new Vector3(0, -5f, roomDepth + 1);
-        StartCoroutine(Move(lowerFrontWall, 7f, 0.04f));
+        CreateObject lowerFrontWall = new CreateObject(new Color(0.65f, 0.65f, 0.65f, 1f), 0, 14f, -4f);
+        lowerFrontWall.Move_obj(new Vector3(0, -5f, roomDepth + 1), 7f);
 
-        GameObject upperFrontWall = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        Renderer upperFrontWallRenderer = upperFrontWall.GetComponent<Renderer>();
-        upperFrontWallRenderer.material.color = new Color(0.65f, 0.65f, 0.65f, 1f);
-        Resize(upperFrontWall, 4f, new Vector3(0, 0, -1));
-        Resize(upperFrontWall, 14f, new Vector3(0, 1, 0));
-        Resize(upperFrontWall, roomWidth, new Vector3(1, 0, 0));
-        upperFrontWall.transform.position += new Vector3(0, -5f, roomDepth + 1);
-        StartCoroutine(Move(upperFrontWall, roomHeight - 3.5f, 0.16f));
+        // GameObject lowerFrontWall = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        // Renderer lowerFrontWallRenderer = lowerFrontWall.GetComponent<Renderer>();
+        // lowerFrontWallRenderer.material.color = new Color(0.65f, 0.65f, 0.65f, 1f);
+        // Resize(lowerFrontWall, 4f, new Vector3(0, 0, -1));
+        // Resize(lowerFrontWall, 14f, new Vector3(0, 1, 0));
+        // Resize(lowerFrontWall, roomWidth, new Vector3(1, 0, 0));
+        // lowerFrontWall.transform.position += new Vector3(0, -5f, roomDepth + 1);
+        // StartCoroutine(Move(lowerFrontWall, 7f, 0.04f));
 
-        GameObject leftFrontWall = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        Renderer leftFrontWallRenderer = leftFrontWall.GetComponent<Renderer>();
-        leftFrontWallRenderer.material.color = new Color(0.65f, 0.65f, 0.65f, 1f);
-        Resize(leftFrontWall, 4f, new Vector3(0, 0, -1));
-        Resize(leftFrontWall, roomHeight, new Vector3(0, 1, 0));
-        Resize(leftFrontWall, (roomWidth - screenWidth) / 2, new Vector3(1, 0, 0));
-        leftFrontWall.transform.position += new Vector3(0, -roomHeight, roomDepth + 1);
-        StartCoroutine(Move(leftFrontWall, roomHeight / 2, 0.16f));
+        // GameObject upperFrontWall = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        // Renderer upperFrontWallRenderer = upperFrontWall.GetComponent<Renderer>();
+        // upperFrontWallRenderer.material.color = new Color(0.65f, 0.65f, 0.65f, 1f);
+        // Resize(upperFrontWall, 4f, new Vector3(0, 0, -1));
+        // Resize(upperFrontWall, 14f, new Vector3(0, 1, 0));
+        // Resize(upperFrontWall, roomWidth, new Vector3(1, 0, 0));
+        // upperFrontWall.transform.position += new Vector3(0, -5f, roomDepth + 1);
+        // StartCoroutine(Move(upperFrontWall, roomHeight - 3.5f, 0.16f));
 
-        GameObject rightFrontWall = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        Renderer rightFrontWallRenderer = rightFrontWall.GetComponent<Renderer>();
-        rightFrontWallRenderer.material.color = new Color(0.65f, 0.65f, 0.65f, 1f);
-        Resize(rightFrontWall, 4f, new Vector3(0, 0, -1));
-        Resize(rightFrontWall, roomHeight, new Vector3(0, 1, 0));
-        Resize(rightFrontWall, (roomWidth - screenWidth) / 2, new Vector3(1, 0, 0));
-        rightFrontWall.transform.position += new Vector3(roomWidth - ((roomWidth - screenWidth) / 2), -roomHeight, roomDepth + 1);
-        StartCoroutine(Move(rightFrontWall, roomHeight / 2, 0.16f));
+        // GameObject leftFrontWall = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        // Renderer leftFrontWallRenderer = leftFrontWall.GetComponent<Renderer>();
+        // leftFrontWallRenderer.material.color = new Color(0.65f, 0.65f, 0.65f, 1f);
+        // Resize(leftFrontWall, 4f, new Vector3(0, 0, -1));
+        // Resize(leftFrontWall, roomHeight, new Vector3(0, 1, 0));
+        // Resize(leftFrontWall, (roomWidth - screenWidth) / 2, new Vector3(1, 0, 0));
+        // leftFrontWall.transform.position += new Vector3(0, -roomHeight, roomDepth + 1);
+        // StartCoroutine(Move(leftFrontWall, roomHeight / 2, 0.16f));
 
-        GameObject frontWall = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        Renderer frontWallRenderer = frontWall.GetComponent<Renderer>();
-        frontWallRenderer.material.color = new Color(0.65f, 0.65f, 0.65f, 1f);
-        Resize(frontWall, roomHeight, new Vector3(0, 1, 0));
-        Resize(frontWall, roomWidth, new Vector3(1, 0, 0));
-        frontWall.transform.position += new Vector3(0, -roomHeight, roomDepth);
-        StartCoroutine(Move(frontWall, roomHeight / 2, 0.16f));
+        // GameObject rightFrontWall = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        // Renderer rightFrontWallRenderer = rightFrontWall.GetComponent<Renderer>();
+        // rightFrontWallRenderer.material.color = new Color(0.65f, 0.65f, 0.65f, 1f);
+        // Resize(rightFrontWall, 4f, new Vector3(0, 0, -1));
+        // Resize(rightFrontWall, roomHeight, new Vector3(0, 1, 0));
+        // Resize(rightFrontWall, (roomWidth - screenWidth) / 2, new Vector3(1, 0, 0));
+        // rightFrontWall.transform.position += new Vector3(roomWidth - ((roomWidth - screenWidth) / 2), -roomHeight, roomDepth + 1);
+        // StartCoroutine(Move(rightFrontWall, roomHeight / 2, 0.16f));
 
-        GameObject screen = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        Renderer screenRenderer = screen.GetComponent<Renderer>();
-        screenRenderer.material = GlowMaterial;
-        //screenRenderer.material.color = new Color(0.9f, 0.9f, 0.9f, 1f);
-        Resize(screen, roomHeight - 10, new Vector3(0, 1, 0));
-        Resize(screen, roomWidth - 10, new Vector3(1, 0, 0));
-        screen.transform.position += new Vector3(5, -roomHeight, roomDepth - 1f);
-        StartCoroutine(Move(screen, ((roomHeight - 10) / 2), 0.12f));
+        // GameObject frontWall = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        // Renderer frontWallRenderer = frontWall.GetComponent<Renderer>();
+        // frontWallRenderer.material.color = new Color(0.65f, 0.65f, 0.65f, 1f);
+        // Resize(frontWall, roomHeight, new Vector3(0, 1, 0));
+        // Resize(frontWall, roomWidth, new Vector3(1, 0, 0));
+        // frontWall.transform.position += new Vector3(0, -roomHeight, roomDepth);
+        // StartCoroutine(Move(frontWall, roomHeight / 2, 0.16f));
 
-        GameObject backWall = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        Renderer backWallRenderer = backWall.GetComponent<Renderer>();
-        backWallRenderer.material.color = new Color(0.65f, 0.65f, 0.65f, 1f);
-        Resize(backWall, roomHeight, new Vector3(0, 1, 0));
-        Resize(backWall, roomWidth, new Vector3(1, 0, 0));
-        backWall.transform.position += new Vector3(0, -roomHeight, 0);
-        StartCoroutine(Move(backWall, roomHeight / 2, 0.16f));
+        // GameObject screen = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        // Renderer screenRenderer = screen.GetComponent<Renderer>();
+        // screenRenderer.material = GlowMaterial;
+        // //screenRenderer.material.color = new Color(0.9f, 0.9f, 0.9f, 1f);
+        // Resize(screen, roomHeight - 10, new Vector3(0, 1, 0));
+        // Resize(screen, roomWidth - 10, new Vector3(1, 0, 0));
+        // screen.transform.position += new Vector3(5, -roomHeight, roomDepth - 1f);
+        // StartCoroutine(Move(screen, ((roomHeight - 10) / 2), 0.12f));
 
-        GameObject rightWall = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        Renderer rightWallRenderer = rightWall.GetComponent<Renderer>();
-        rightWallRenderer.material.color = new Color(0.65f, 0.65f, 0.65f, 1f);
-        Resize(rightWall, roomHeight, new Vector3(0, 1, 0));
-        Resize(rightWall, roomDepth - 10, new Vector3(0, 0, 1));
-        rightWall.transform.position += new Vector3(-1, -roomHeight, 0);
-        StartCoroutine(Move(rightWall, roomHeight / 2, 0.16f));
+        // GameObject backWall = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        // Renderer backWallRenderer = backWall.GetComponent<Renderer>();
+        // backWallRenderer.material.color = new Color(0.65f, 0.65f, 0.65f, 1f);
+        // Resize(backWall, roomHeight, new Vector3(0, 1, 0));
+        // Resize(backWall, roomWidth, new Vector3(1, 0, 0));
+        // backWall.transform.position += new Vector3(0, -roomHeight, 0);
+        // StartCoroutine(Move(backWall, roomHeight / 2, 0.16f));
 
-        GameObject rightWallDoor = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        Renderer rightWallDoorRenderer = rightWallDoor.GetComponent<Renderer>();
-        rightWallDoorRenderer.material.color = new Color(0.65f, 0.65f, 0.65f, 1f);
-        Resize(rightWallDoor, roomHeight - 20, new Vector3(0, 1, 0));
-        Resize(rightWallDoor, 6, new Vector3(0, 0, 1));
-        rightWallDoor.transform.position += new Vector3(-1, 2 * roomHeight, roomDepth - 9);
-        StartCoroutine(MoveDown(rightWallDoor, (roomHeight / 2) + 10, 0.16f));
+        // GameObject rightWall = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        // Renderer rightWallRenderer = rightWall.GetComponent<Renderer>();
+        // rightWallRenderer.material.color = new Color(0.65f, 0.65f, 0.65f, 1f);
+        // Resize(rightWall, roomHeight, new Vector3(0, 1, 0));
+        // Resize(rightWall, roomDepth - 10, new Vector3(0, 0, 1));
+        // rightWall.transform.position += new Vector3(-1, -roomHeight, 0);
+        // StartCoroutine(Move(rightWall, roomHeight / 2, 0.16f));
 
-        GameObject leftWall = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        Renderer leftWallRenderer = leftWall.GetComponent<Renderer>();
-        leftWallRenderer.material.color = new Color(0.65f, 0.65f, 0.65f, 1f);
-        Resize(leftWall, roomHeight, new Vector3(0, 1, 0));
-        Resize(leftWall, roomDepth, new Vector3(0, 0, 1));
-        leftWall.transform.position += new Vector3(roomWidth, -roomHeight, 0);
-        StartCoroutine(Move(leftWall, roomHeight / 2, 0.16f));
+        // GameObject rightWallDoor = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        // Renderer rightWallDoorRenderer = rightWallDoor.GetComponent<Renderer>();
+        // rightWallDoorRenderer.material.color = new Color(0.65f, 0.65f, 0.65f, 1f);
+        // Resize(rightWallDoor, roomHeight - 20, new Vector3(0, 1, 0));
+        // Resize(rightWallDoor, 6, new Vector3(0, 0, 1));
+        // rightWallDoor.transform.position += new Vector3(-1, 2 * roomHeight, roomDepth - 9);
+        // StartCoroutine(MoveDown(rightWallDoor, (roomHeight / 2) + 10, 0.16f));
 
-        GameObject celling = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        Renderer cellingRenderer = celling.GetComponent<Renderer>();
-        cellingRenderer.material.color = new Color(0.65f, 0.65f, 0.65f, 1f);
-        Resize(celling, roomWidth, new Vector3(1, 0, 0));
-        Resize(celling, roomDepth, new Vector3(0, 0, 1));
-        celling.transform.position += new Vector3(0, 1.5f * roomHeight, 0);
-        StartCoroutine(MoveDown(celling, roomHeight, 0.16f));
+        // GameObject leftWall = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        // Renderer leftWallRenderer = leftWall.GetComponent<Renderer>();
+        // leftWallRenderer.material.color = new Color(0.65f, 0.65f, 0.65f, 1f);
+        // Resize(leftWall, roomHeight, new Vector3(0, 1, 0));
+        // Resize(leftWall, roomDepth, new Vector3(0, 0, 1));
+        // leftWall.transform.position += new Vector3(roomWidth, -roomHeight, 0);
+        // StartCoroutine(Move(leftWall, roomHeight / 2, 0.16f));
+
+        // GameObject celling = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        // Renderer cellingRenderer = celling.GetComponent<Renderer>();
+        // cellingRenderer.material.color = new Color(0.65f, 0.65f, 0.65f, 1f);
+        // Resize(celling, roomWidth, new Vector3(1, 0, 0));
+        // Resize(celling, roomDepth, new Vector3(0, 0, 1));
+        // celling.transform.position += new Vector3(0, 1.5f * roomHeight, 0);
+        // StartCoroutine(MoveDown(celling, roomHeight, 0.16f));
 
     }
 
