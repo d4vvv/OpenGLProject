@@ -17,6 +17,8 @@ public class FloorGeneratorScript : MonoBehaviour
     List<Renderer> rightUnderSeatRenderers = new List<Renderer>();
     List<Renderer> glowSticksRenderers = new List<Renderer>();
 
+    GameObject test2;
+
     private float roomWidth = ParametersScript.roomWidth;
     private float roomDepth = ParametersScript.roomDepth;
     private float roomHeight = ParametersScript.roomHeight;
@@ -99,6 +101,22 @@ public class FloorGeneratorScript : MonoBehaviour
                 StartCoroutine(Move(rightUnderSeatFloorList[i], i * 4f + 0.01f, 0.04f));
             } 
         }
+
+        CreateRoom();
+
+       
+
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+
+    void CreateRoom()
+    {
         GameObject lowerFrontWall = GameObject.CreatePrimitive(PrimitiveType.Cube);
         Renderer lowerFrontWallRenderer = lowerFrontWall.GetComponent<Renderer>();
         lowerFrontWallRenderer.material.color = new Color(0.65f, 0.65f, 0.65f, 1f);
@@ -192,14 +210,6 @@ public class FloorGeneratorScript : MonoBehaviour
         celling.transform.position += new Vector3(0, 1.5f * roomHeight, 0);
         StartCoroutine(MoveDown(celling, roomHeight, 0.16f));
 
-
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public IEnumerator Move(GameObject gm, float height, float speed)
