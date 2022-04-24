@@ -115,17 +115,17 @@ public class FloorGeneratorScript : MonoBehaviour
 
     void CreateRoom()
     {
-        CreateObject lowerFrontWall = new CreateObject(new Color(0.65f, 0.65f, 0.65f, 1f), 0, 14f, -4f);
-        lowerFrontWall.Move_obj(new Vector3(0, -5f, roomDepth + 1), 7f);
+        CreateObject lowerFrontWall = new CreateObject(new Color(0.65f, 0.65f, 0.65f, 1f), roomWidth, 14f, -4f);
+        lowerFrontWall.Move_obj(new Vector3(0, -5f, roomDepth + 1), 140f);
 
-        // GameObject lowerFrontWall = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        // Renderer lowerFrontWallRenderer = lowerFrontWall.GetComponent<Renderer>();
-        // lowerFrontWallRenderer.material.color = new Color(0.65f, 0.65f, 0.65f, 1f);
-        // Resize(lowerFrontWall, 4f, new Vector3(0, 0, -1));
-        // Resize(lowerFrontWall, 14f, new Vector3(0, 1, 0));
-        // Resize(lowerFrontWall, roomWidth, new Vector3(1, 0, 0));
-        // lowerFrontWall.transform.position += new Vector3(0, -5f, roomDepth + 1);
-        // StartCoroutine(Move(lowerFrontWall, 7f, 0.04f));
+        //GameObject lowerFrontWall = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        //Renderer lowerFrontWallRenderer = lowerFrontWall.GetComponent<Renderer>();
+        //lowerFrontWallRenderer.material.color = new Color(0.65f, 0.65f, 0.65f, 1f);
+        //Resize(lowerFrontWall, 4f, new Vector3(0, 0, -1));
+        //Resize(lowerFrontWall, 14f, new Vector3(0, 1, 0));
+        //Resize(lowerFrontWall, roomWidth, new Vector3(1, 0, 0));
+        //lowerFrontWall.transform.position += new Vector3(0, -5f, roomDepth + 1);
+        //StartCoroutine(Move(lowerFrontWall, 7f, 0.04f));
 
         // GameObject upperFrontWall = GameObject.CreatePrimitive(PrimitiveType.Cube);
         // Renderer upperFrontWallRenderer = upperFrontWall.GetComponent<Renderer>();
@@ -213,7 +213,7 @@ public class FloorGeneratorScript : MonoBehaviour
 
     }
 
-    public static IEnumerator Move(GameObject gm, float height, float speed)
+    public IEnumerator Move(GameObject gm, float height, float speed)
     {   
         while(gm.transform.position.y < height)
         {

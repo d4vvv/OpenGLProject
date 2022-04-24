@@ -20,7 +20,7 @@ public class CreateObject : MonoBehaviour
 
     public void Move_obj(Vector3 start_pos, float height){
         local_gm.transform.position += start_pos;
-        StartCoroutine(FloorGeneratorScript.Move(local_gm, height, 0.04f));
+        StartCoroutine(Move(local_gm, height, 0.04f));
     }
     public CreateObject(Color color_, float width, float height, float depth)
     {
@@ -35,5 +35,14 @@ public class CreateObject : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public IEnumerator Move(GameObject gm, float height, float speed)
+    {
+        while (gm.transform.position.y < height)
+        {
+            gm.transform.position += new Vector3(0, speed, 0);
+            yield return new WaitForSeconds(0.01f);
+        }
     }
 }
