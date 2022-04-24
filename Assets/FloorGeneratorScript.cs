@@ -5,6 +5,7 @@ using UnityEngine;
 public class FloorGeneratorScript : MonoBehaviour
 {
     public Material GlowMaterial;
+    public Material GlowMaterial2;
 
     //private GameObject floor = GameObject.CreatePrimitive(PrimitiveType.Cube);
     //private Renderer rend = floor.GetComponent<Renderer>();
@@ -16,6 +17,10 @@ public class FloorGeneratorScript : MonoBehaviour
     List<Renderer> leftUnderSeatRenderers = new List<Renderer>();
     List<Renderer> rightUnderSeatRenderers = new List<Renderer>();
     List<Renderer> glowSticksRenderers = new List<Renderer>();
+    List<GameObject> rightSeatList = new List<GameObject>();
+    List<Renderer> rightSeatRenderers = new List<Renderer>();
+    List<GameObject> leftSeatList = new List<GameObject>();
+    List<Renderer> leftSeatRenderers = new List<Renderer>();
 
     GameObject test2;
 
@@ -73,6 +78,29 @@ public class FloorGeneratorScript : MonoBehaviour
             rightUnderSeatFloorList.Add(GameObject.CreatePrimitive(PrimitiveType.Cube));
             rightUnderSeatRenderers.Add(rightUnderSeatFloorList[i].GetComponent<Renderer>());
             rightUnderSeatRenderers[i].material.color = new Color(0.2f, 0.2f, 0.2f, 1f);
+
+            for (int j = 0; j < (roomWidth/2 - 10)/8; j++)
+            {
+                int index = i * (int)((roomWidth / 2 - 10) / 8) + j;
+                leftSeatList.Add(GameObject.CreatePrimitive(PrimitiveType.Cube));
+                leftSeatRenderers.Add(leftSeatList[index].GetComponent<Renderer>());
+                leftSeatRenderers[index].material = GlowMaterial2;
+                Resize(leftSeatList[index], 4, new Vector3(0, 0, 1));
+                Resize(leftSeatList[index], 4, new Vector3(1, 0, 0));
+                Resize(leftSeatList[index], 8, new Vector3(0, 1, 0));
+                leftSeatList[index].transform.position = new Vector3(6 + 8*j, 0, roomDepth - frontCorridorDepth - 2f - 8f * i);
+                StartCoroutine(Move(leftSeatList[index], i * 4f + 6f, 0.04f));
+
+                rightSeatList.Add(GameObject.CreatePrimitive(PrimitiveType.Cube));
+                rightSeatRenderers.Add(rightSeatList[index].GetComponent<Renderer>());
+                rightSeatRenderers[index].material = GlowMaterial2;
+                Resize(rightSeatList[index], 4, new Vector3(0, 0, 1));
+                Resize(rightSeatList[index], 4, new Vector3(1, 0, 0));
+                Resize(rightSeatList[index], 8, new Vector3(0, 1, 0));
+                rightSeatList[index].transform.position = new Vector3(12 + 8 * j + roomWidth / 2, 0, roomDepth - frontCorridorDepth - 2f - 8f * i);
+                StartCoroutine(Move(rightSeatList[index], i * 4f + 6f, 0.04f));
+            }
+            
             if (i == 0)
             {
                 Resize(leftUnderSeatFloorList[i], (roomWidth / 2) - 5, new Vector3(1, 0, 0));
@@ -209,6 +237,8 @@ public class FloorGeneratorScript : MonoBehaviour
         Resize(celling, roomDepth, new Vector3(0, 0, 1));
         celling.transform.position += new Vector3(0, 1.5f * roomHeight, 0);
         StartCoroutine(MoveDown(celling, roomHeight, 0.16f));
+
+
 
     }
 
